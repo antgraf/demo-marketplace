@@ -20,9 +20,16 @@ Claude Code reads the `marketplace.json` file to discover available plugins and 
 
 The repository demonstrates a marketplace pattern for Claude Code plugins:
 
-- **marketplace.json**: Central registry that indexes all available plugins with metadata (id, name, version, category, tags, path, entrypoint)
-- **plugins/**: Directory containing individual plugin packages, each self-contained with implementation, metadata, and documentation
-- Each plugin follows the **Agent pattern** from `@claude/sdk`
+- **.claude-plugin/marketplace.json**: Central registry that indexes all available plugins with metadata (name, version, description, source, category)
+- **plugins/**: Directory containing individual plugin packages, each self-contained
+- **plugins/*/. claude-plugin/plugin.json**: Individual plugin configuration defining skills, commands, agents, etc.
+- Each plugin skill follows the **Agent pattern** from `@claude/sdk`
+
+### Critical Files
+
+1. `.claude-plugin/marketplace.json` - Required at repository root, discovered by Claude Code
+2. `plugins/[plugin-name]/.claude-plugin/plugin.json` - Required for each plugin
+3. `plugins/[plugin-name]/skill.ts` - The actual agent implementation
 
 ### Plugin Architecture Pattern
 
@@ -54,26 +61,60 @@ const agent = new Agent({
 
 ### Adding a New Plugin
 
-1. Create a new directory under `plugins/your-plugin-name/`
-2. Required files:
-   - `skill.ts`: Agent implementation (see code-formatter as template)
-   - `package.json`: Must include `claudePlugin` metadata with `type` and `entrypoint`
-   - `README.md`: User-facing documentation with usage examples
-3. Update `marketplace.json` to register the new plugin in the `plugins` array
-4. Use `code-formatter` as the canonical reference implementation
+1. Create directory structure:
+   ```
+   plugins/your-plugin-name/
+   ├── .claude-plugin/
+   │   └── plugin.json
+   ├── skill.ts
+   ├── package.json (optional)
+   └── README.md
+   ```
 
-### Plugin Metadata Requirements
+2. Create `.claude-plugin/plugin.json`:
+   ```json
+   {
+     "name": "your-plugin-name",
+     "version": "1.0.0",
+     "description": "What it does",
+     "skills": [
+       {
+         "name": "your-plugin-name",
+         "description": "Skill description",
+         "entrypoint": "../skill.ts"
+       }
+     ]
+   }
+   ```
 
-In package.json:
-- Name must follow `@demo-marketplace/plugin-name` convention
-- Include `claudePlugin.type: "skill"` and `claudePlugin.entrypoint: "skill.ts"`
-- Declare `@claude/sdk` as a peerDependency
+3. Implement `skill.ts` following the Agent pattern (see code-formatter)
 
-In marketplace.json:
-- Assign a unique `id` matching the plugin directory name
-- Specify `category` from the defined categories list
-- Include descriptive `tags` for discoverability
-- Set `path` relative to repo root: `./plugins/plugin-name`
+4. Register in `.claude-plugin/marketplace.json`:
+   ```json
+   {
+     "plugins": [
+       {
+         "name": "your-plugin-name",
+         "description": "Brief description",
+         "version": "1.0.0",
+         "source": "your-plugin-name",
+         "category": "productivity"
+       }
+     ]
+   }
+   ```
+
+### Marketplace Configuration
+
+In `.claude-plugin/marketplace.json`:
+- `name`: Unique marketplace identifier (kebab-case)
+- `owner`: Object with `name` (required) and `email` (optional)
+- `metadata.pluginRoot`: Base directory for plugin sources (e.g., "./plugins")
+- `plugins[].name`: Plugin identifier users install with
+- `plugins[].source`: Relative path from pluginRoot to plugin directory
+- `plugins[].category`: One of: development, productivity, security, learning, testing
+
+Valid categories: development, productivity, security, learning, testing, database, deployment, monitoring, documentation
 
 ### Code Formatter Plugin Details
 

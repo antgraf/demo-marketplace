@@ -1,0 +1,26 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "demo-marketplace",
+  "description": "A demonstration marketplace for Claude Code plugins, showcasing best practices for skill development",
+  "owner": {
+    "name": "Demo Marketplace",
+    "email": "[email protected]"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "code-formatter",
+      "description": "Format and beautify code snippets in various languages (JSON, JavaScript, TypeScript, Python)",
+      "version": "1.0.0",
+      "author": {
+        "name": "Demo Marketplace"
+      },
+      "source": "code-formatter",
+      "category": "productivity",
+      "keywords": ["formatter", "beautifier", "code-quality", "javascript", "typescript", "python", "json"]
+    }
+  ]
+}

@@ -24,13 +24,17 @@ Claude Code is an AI-powered coding assistant that can be extended through custo
 
 ```
 demo-marketplace/
-├── plugins/                    # Plugin directory
+├── .claude-plugin/
+│   └── marketplace.json       # Marketplace registry (required)
+├── plugins/                   # Plugin directory
 │   └── code-formatter/        # Sample plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json    # Plugin configuration (required)
 │       ├── skill.ts           # Main plugin code
 │       ├── package.json       # Plugin metadata
 │       └── README.md          # Plugin documentation
 ├── README.md                  # This file
-├── claude.md                  # Claude Code specific docs
+├── CLAUDE.md                  # Claude Code guidance
 └── LICENSE                    # MIT License
 ```
 
@@ -73,9 +77,27 @@ const formatterAgent = new Agent({
 ```bash
 plugins/
 └── your-plugin-name/
+    ├── .claude-plugin/
+    │   └── plugin.json   # Plugin configuration (required)
     ├── skill.ts          # Main agent implementation
     ├── package.json      # Metadata and dependencies
     └── README.md         # Documentation
+```
+
+Create `.claude-plugin/plugin.json`:
+```json
+{
+  "name": "your-plugin-name",
+  "version": "1.0.0",
+  "description": "What your plugin does",
+  "skills": [
+    {
+      "name": "your-plugin-name",
+      "description": "Skill description",
+      "entrypoint": "../skill.ts"
+    }
+  ]
+}
 ```
 
 ### Step 2: Implement Your Agent
@@ -98,18 +120,25 @@ const myAgent = new Agent({
 export default myAgent;
 ```
 
-### Step 3: Add package.json
+### Step 3: Register in Marketplace
+
+Add your plugin to `.claude-plugin/marketplace.json`:
 
 ```json
 {
-  "name": "@demo-marketplace/your-plugin",
-  "version": "1.0.0",
-  "claudePlugin": {
-    "type": "skill",
-    "entrypoint": "skill.ts"
-  }
+  "plugins": [
+    {
+      "name": "your-plugin-name",
+      "description": "Brief description",
+      "version": "1.0.0",
+      "source": "your-plugin-name",
+      "category": "productivity"
+    }
+  ]
 }
 ```
+
+The `source` field uses the plugin directory name (relative to `pluginRoot` in marketplace metadata).
 
 ## Installation & Usage
 

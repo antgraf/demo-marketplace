@@ -1,0 +1,16 @@
+{
+  "name": "code-formatter",
+  "version": "1.0.0",
+  "description": "Format and beautify code snippets in various languages",
+  "author": {
+    "name": "Demo Marketplace"
+  },
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "code-formatter",
+      "description": "Format and beautify code snippets in various languages",
+      "entrypoint": "../skill.ts"
+    }
+  ]
+}
