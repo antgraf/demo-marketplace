@@ -28,8 +28,9 @@ The repository demonstrates a marketplace pattern for Claude Code plugins:
 ### Critical Files
 
 1. `.claude-plugin/marketplace.json` - Required at repository root, discovered by Claude Code
-2. `plugins/[plugin-name]/.claude-plugin/plugin.json` - Required for each plugin
-3. `plugins/[plugin-name]/skill.ts` - The actual agent implementation
+2. `plugins/[plugin-name]/.claude-plugin/plugin.json` - Required for each plugin (defines metadata and paths)
+3. `plugins/[plugin-name]/skills/*/SKILL.md` - Skill definitions in markdown format with frontmatter
+4. `plugins/[plugin-name]/skill.ts` - Optional: Agent SDK implementation (demonstration only)
 
 ### Plugin Architecture Pattern
 
@@ -66,7 +67,9 @@ const agent = new Agent({
    plugins/your-plugin-name/
    ├── .claude-plugin/
    │   └── plugin.json
-   ├── skill.ts
+   ├── skills/
+   │   └── your-skill-name/
+   │       └── SKILL.md
    ├── package.json (optional)
    └── README.md
    ```
@@ -77,17 +80,29 @@ const agent = new Agent({
      "name": "your-plugin-name",
      "version": "1.0.0",
      "description": "What it does",
-     "skills": [
-       {
-         "name": "your-plugin-name",
-         "description": "Skill description",
-         "entrypoint": "../skill.ts"
-       }
-     ]
+     "author": {
+       "name": "Your Name"
+     },
+     "license": "MIT",
+     "skills": "./skills/"
    }
    ```
 
-3. Implement `skill.ts` following the Agent pattern (see code-formatter)
+3. Create `skills/your-skill-name/SKILL.md`:
+   ```markdown
+   ---
+   description: Brief skill description
+   capabilities: ["task1", "task2"]
+   ---
+
+   # Skill Name
+
+   Detailed description of when and how Claude should invoke this skill.
+
+   ## Capabilities
+   - Task 1 description
+   - Task 2 description
+   ```
 
 4. Register in `.claude-plugin/marketplace.json`:
    ```json
