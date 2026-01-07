@@ -1,6 +1,6 @@
 ---
-description: Format and beautify code snippets in various languages
-capabilities: ["format-json", "format-javascript", "format-typescript", "format-python", "code-beautification"]
+name: code-formatter
+description: Format and beautify code snippets in various languages (JSON, JavaScript, TypeScript, Python). Use when the user asks to format, beautify, or clean up code, or needs consistent indentation or pretty-printing.
 ---
 
 # Code Formatter
