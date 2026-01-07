@@ -7,8 +7,7 @@
     "email": "[email protected]"
   },
   "metadata": {
-    "version": "1.0.0",
-    "pluginRoot": "./plugins"
+    "version": "1.0.0"
   },
   "plugins": [
     {
@@ -18,7 +17,7 @@
       "author": {
         "name": "Demo Marketplace"
       },
-      "source": "code-formatter",
+      "source": "./plugins/code-formatter",
       "category": "productivity",
       "keywords": ["formatter", "beautifier", "code-quality", "javascript", "typescript", "python", "json"]
     }
