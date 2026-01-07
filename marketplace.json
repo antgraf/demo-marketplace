@@ -1,0 +1,25 @@
+{
+  "name": "Claude Code Marketplace Demo",
+  "version": "1.0.0",
+  "description": "A demonstration marketplace for Claude Code plugins",
+  "plugins": [
+    {
+      "id": "code-formatter",
+      "name": "Code Formatter",
+      "version": "1.0.0",
+      "description": "Format and beautify code snippets in various languages",
+      "author": "Marketplace Demo",
+      "category": "code-quality",
+      "tags": ["formatter", "beautifier", "code-quality"],
+      "path": "./plugins/code-formatter",
+      "entrypoint": "skill.ts",
+      "languages": ["javascript", "typescript", "python", "json"]
+    }
+  ],
+  "categories": [
+    "code-quality",
+    "productivity",
+    "testing",
+    "documentation"
+  ]
+}

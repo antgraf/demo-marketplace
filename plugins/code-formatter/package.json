@@ -1,0 +1,20 @@
+{
+  "name": "@demo-marketplace/code-formatter",
+  "version": "1.0.0",
+  "description": "A simple code formatting plugin for Claude Code",
+  "main": "skill.ts",
+  "keywords": ["claude-code", "plugin", "formatter", "code-quality"],
+  "author": "Demo Marketplace",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antgraf/demo-marketplace.git"
+  },
+  "peerDependencies": {
+    "@claude/sdk": "^1.0.0"
+  },
+  "claudePlugin": {
+    "type": "skill",
+    "entrypoint": "skill.ts"
+  }
+}
