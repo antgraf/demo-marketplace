@@ -5,6 +5,5 @@
   "author": {
     "name": "Demo Marketplace"
   },
-  "license": "MIT",
-  "skills": "./skills/"
+  "license": "MIT"
 }
