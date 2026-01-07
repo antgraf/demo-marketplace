@@ -79,8 +79,10 @@ plugins/
 └── your-plugin-name/
     ├── .claude-plugin/
     │   └── plugin.json   # Plugin configuration (required)
-    ├── skill.ts          # Main agent implementation
-    ├── package.json      # Metadata and dependencies
+    ├── skills/           # Skills directory
+    │   └── your-skill/
+    │       └── SKILL.md  # Skill definition in markdown
+    ├── package.json      # Metadata (optional)
     └── README.md         # Documentation
 ```
 
@@ -90,34 +92,35 @@ Create `.claude-plugin/plugin.json`:
   "name": "your-plugin-name",
   "version": "1.0.0",
   "description": "What your plugin does",
-  "skills": [
-    {
-      "name": "your-plugin-name",
-      "description": "Skill description",
-      "entrypoint": "../skill.ts"
-    }
-  ]
+  "author": {
+    "name": "Your Name"
+  },
+  "license": "MIT",
+  "skills": "./skills/"
 }
 ```
 
-### Step 2: Implement Your Agent
+### Step 2: Create SKILL.md
 
-```typescript
-import { Agent, z } from "@claude/sdk";
+Create `skills/your-skill/SKILL.md`:
 
-const myAgent = new Agent({
-  name: "my-plugin",
-  description: "What your plugin does",
-  inputSchema: z.object({
-    // Define your inputs
-  }),
-  async run(input) {
-    // Your logic here
-    return result;
-  },
-});
+```markdown
+---
+description: Brief skill description
+capabilities: ["capability1", "capability2"]
+---
 
-export default myAgent;
+# Your Skill Name
+
+Detailed description of what this skill does and when Claude should use it.
+
+## Capabilities
+- Specific task 1
+- Specific task 2
+- When to invoke this skill
+
+## Usage Examples
+Provide examples of when and how to use this skill.
 ```
 
 ### Step 3: Register in Marketplace
@@ -177,7 +180,7 @@ Contributions are welcome! To add your plugin:
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details
+MIT License - see [LICENSE](LICENSE.md) file for details
 
 ## Learn More
 

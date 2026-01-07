@@ -6,11 +6,5 @@
     "name": "Demo Marketplace"
   },
   "license": "MIT",
-  "skills": [
-    {
-      "name": "code-formatter",
-      "description": "Format and beautify code snippets in various languages",
-      "entrypoint": "../skill.ts"
-    }
-  ]
+  "skills": "./skills/"
 }
